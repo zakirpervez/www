@@ -9,6 +9,7 @@ class UserController
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'UserData');
         $stmt->execute();
         if ($dbUserData = $stmt->fetch()) {
+            var_dump(password_verify($userData->password, $dbUserData->password));
             return password_verify($userData->password, $dbUserData->password);
         }
     }

@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $userData->userId = $_POST['username'];
     $userData->password = $_POST['password'];
     $userData->lastLogin = date('Y-m-d');
-    var_dump($userData);
     if (UserController::atuhenticateUser($connection, $userData)) {
         AuthHelper::login();
         Router::redirect('/www/');
