@@ -1,8 +1,16 @@
 <?php
+ini_set('display_errors', 1);
 require '../includes/init.php';
+AuthHelper::requireLogin();
+$connection = require '../includes/database_helper.php';
+
+$articleData = isset($_GET['id'])? ArticleCurdOperations::getArticle($connection, $_GET['id']): null;
+if ( ! $articleData) {
+    die("article not found");
+}
+
 if($_SERVER['REQUEST_METHOD']=="POST") {
     try {
-        var_dump($_FILES);
         if(empty($_FILES)) {
             throw new Exception("Invalid upload");
         }
@@ -34,6 +42,8 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
         $pathinfo = pathinfo($_FILES['file']['name']);
         $base = $pathinfo['filename'];
         $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
+        $base = mb_substr($base, 0, 255);
+
         $filename = $base. '.'. $pathinfo['extension'];
         $destination = '../uploads/'.$filename;
         $i = 1;
@@ -41,8 +51,13 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
             $filename = $base. '-'. $i. '.'. $pathinfo['extension'];
             $destination = '../uploads/'.$filename;
         }
+        var_dump($destination);
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
-            echo 'Image uploaded successfully';
+            if($articleData->setImageFile($connection, $filename)){
+                var_dump($articleData);
+                $articleData->image_file = $filename;
+                Router::redirect('/www/admin/article-detail.php?id='.$articleData->id);
+            }
         } else {
             throw new Exception("Something went wrong with upload");
         }
