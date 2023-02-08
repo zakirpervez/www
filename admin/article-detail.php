@@ -3,27 +3,31 @@ require '../includes/init.php';
 $connection = require '../includes/database_helper.php';
 
 if (isset($_GET['id'])) {
-    $article = ArticleCurdOperations::getArticle($connection, $_GET['id']);
+    $articleData = ArticleCurdOperations::getArticleData($connection, $_GET['id']);
 } else {
-    $article = null;
+    $articleData = null;
 }
 
 ?>
 
 <?php require '../includes/header.php' ?>
-<?php if ($article == null) : ?>
+<?php if ($articleData == null) : ?>
     <p>No articles found</p>
 <?php else : ?>
     <article>
-        <h2><?= htmlspecialchars($article->title); ?></h2>
-        <p><?= htmlspecialchars($article->content); ?></p>
+        <h2><?= htmlspecialchars($articleData->title); ?></h2>
+        <p><?= htmlspecialchars($articleData->content); ?></p>
     </article>
 <?php endif; ?>
 <div>
     <?php if (AuthHelper::isLoggedIn()) : ?>
-        <a href="edit-article.php?id=<?= $article->id; ?>">Edit</a>
-        <a href="delete-article.php?id=<?= $article->id; ?>">Delete</a>
-        <a href="edit-article-image.php?id=<?= $article->id; ?>">Edit Image</a>
+        <a href="edit-article.php?id=<?= $articleData->id; ?>">Edit</a>
+        <a href="delete-article.php?id=<?= $articleData->id; ?>">Delete</a>
+        <a href="edit-article-image.php?id=<?= $articleData->id; ?>">Edit Image</a>
+
+        <?php if($articleData->image_file): ?>
+            <img src="/www/uploads/<?= $articleData->image_file; ?>" alt="Article image">
+        <?php endif; ?>
     <?php endif; ?>
 </div>
 <?php require '../includes/footer.php' ?>

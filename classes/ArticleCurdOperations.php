@@ -48,7 +48,7 @@ class ArticleCurdOperations
         return $errors;
     }
 
-    public static function getArticle($connection, $id, $colSelection = '*')
+    public static function getArticleData($connection, $id, $colSelection = '*')
     {
         $selectSingleArticleQuery = "SELECT $colSelection FROM article WHERE id=:id";
         $statement = $connection->prepare($selectSingleArticleQuery);

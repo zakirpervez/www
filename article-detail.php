@@ -3,19 +3,22 @@ require 'includes/init.php';
 $connection = require 'includes/database_helper.php';
 
 if (isset($_GET['id'])) {
-    $article = ArticleCurdOperations::getArticle($connection, $_GET['id']);
+    $articleData = ArticleCurdOperations::getArticleData($connection, $_GET['id']);
 } else {
-    $article = null;
+    $articleData = null;
 }
 ?>
 
 <?php require 'includes/header.php' ?>
-<?php if ($article == null) : ?>
+<?php if ($articleData == null) : ?>
     <p>No articles found</p>
 <?php else : ?>
     <article>
-        <h2><?= htmlspecialchars($article->title); ?></h2>
-        <p><?= htmlspecialchars($article->content); ?></p>
+        <h2><?= htmlspecialchars($articleData->title); ?></h2>
+        <p><?= htmlspecialchars($articleData->content); ?></p>
+        <?php if($articleData->image_file): ?>
+            <img src="/www/uploads/<?= $articleData->image_file; ?>">
+        <?php endif; ?>
     </article>
 <?php endif; ?>
 <?php require 'includes/footer.php' ?>

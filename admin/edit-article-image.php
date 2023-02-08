@@ -4,7 +4,7 @@ require '../includes/init.php';
 AuthHelper::requireLogin();
 $connection = require '../includes/database_helper.php';
 
-$articleData = isset($_GET['id'])? ArticleCurdOperations::getArticle($connection, $_GET['id']): null;
+$articleData = isset($_GET['id'])? ArticleCurdOperations::getArticleData($connection, $_GET['id']): null;
 if ( ! $articleData) {
     die("article not found");
 }
