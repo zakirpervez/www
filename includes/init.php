@@ -1,7 +1,10 @@
 <?php
 ini_set('display_errors', 1);
 spl_autoload_register ( function ($class) {
-        $sources = array(dirname(__DIR__). "/classes/$class.php", dirname(__DIR__)."/models/$class.php", dirname(__DIR__)."/controler/$class.php");
+        $sources = array(
+            dirname(__DIR__). "/classes/$class.php",
+            dirname(__DIR__)."/models/$class.php",
+            dirname(__DIR__)."/controler/$class.php");
         // echo "<br/> Before foreach<br/>";
         // var_dump($sources);
         foreach($sources as $key=>$source) {

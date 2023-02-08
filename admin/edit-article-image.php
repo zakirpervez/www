@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             throw new Exception("Something went wrong with upload");
         }
     } catch (Exception $e) {
-        echo '<br> Error ' . $e->getMessage();
+        $error = '<br> Error ' . $e->getMessage();
     }
 }
 
@@ -74,6 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <?php require '../includes/header.php'; ?>
 
     <h2>Edit article image</h2>
+    <?php if ($error): ?>
+        <p style="color: red" ><?= $error; ?></p>
+    <?php endif; ?>
     <form method="post" enctype="multipart/form-data">
         <div>
             <label for="file">Browse</label>

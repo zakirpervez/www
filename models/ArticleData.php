@@ -11,7 +11,7 @@ class ArticleData {
     {
         $sql = "UPDATE article SET image_file=:file WHERE id=:id";
         $stmt = $connection->prepare($sql);
-        $stmt->bindValue(':file', $file, PDO::PARAM_STR);
+        $stmt->bindValue(':file', $file, $file==null? PDO::PARAM_NULL: PDO::PARAM_STR);
         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
         return $stmt->execute();
     }
