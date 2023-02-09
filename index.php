@@ -20,42 +20,42 @@ $articles = ArticleCurdOperations::page($connection, $paginator->limit, $paginat
 
 
 <?php require 'includes/header.php' ?>
-<!-- <fieldset>
-    <article>
-        <h3><a href="new-article.php">Add new article</a></h3>
-    </article>
-    <article>
-        <h3><a href="new-article-sql-injection-proof.php">Add new article sql injection proof</a></h3>
-    </article> 
-</fieldset> -->
-<!-- <article>
-        <h3><a href="forms.php">PHP Forms</a></h3>
-    </article>
-    <article>
-        <h3><a href="form2.php">PHP Forms 2</a></h3>
-    </article>
-    <article>
-        <h3><a href="function-example.php">PHP Functions</a></h3>
-    </article>
-    <article>
-        <h3><a href="form3.php">PHP Forms 3</a></h3>
-    </article>
-    <article>
-        <h3><a href="label.php">Lables</a></h3>
-    </article>
-    <article>
-        <h3><a href="formvalidation.php">PHP Form Validataion</a></h3>
-    </article> -->
-<ul>
-    <?php foreach ($articles as $article) : ?>
-        <li>
-            <article>
-                <a href="article-detail.php?id=<?= $article['id']; ?>">
-                    <h2><?= htmlspecialchars($article['title']); ?></h2>
-                </a>
-            </article>
-        </li>
-    <?php endforeach; ?>
-</ul>
+    <!-- <fieldset>
+        <article>
+            <h3><a href="new-article.php">Add new article</a></h3>
+        </article>
+        <article>
+            <h3><a href="new-article-sql-injection-proof.php">Add new article sql injection proof</a></h3>
+        </article>
+    </fieldset> -->
+    <!-- <article>
+            <h3><a href="forms.php">PHP Forms</a></h3>
+        </article>
+        <article>
+            <h3><a href="form2.php">PHP Forms 2</a></h3>
+        </article>
+        <article>
+            <h3><a href="function-example.php">PHP Functions</a></h3>
+        </article>
+        <article>
+            <h3><a href="form3.php">PHP Forms 3</a></h3>
+        </article>
+        <article>
+            <h3><a href="label.php">Lables</a></h3>
+        </article>
+        <article>
+            <h3><a href="formvalidation.php">PHP Form Validataion</a></h3>
+        </article> -->
+    <ul>
+        <?php foreach ($articles as $article) : ?>
+            <li>
+                <article>
+                    <a href="article-detail.php?id=<?= $article['id']; ?>">
+                        <h2><?= htmlspecialchars($article['title']); ?></h2>
+                    </a>
+                </article>
+            </li>
+        <?php endforeach; ?>
+    </ul>
 <?php require 'includes/pagination.php'; ?>
 <?php require 'includes/footer.php' ?>

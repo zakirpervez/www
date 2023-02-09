@@ -105,4 +105,15 @@ class ArticleCurdOperations
     public static function getTotalCount($connection) {
         return $connection->query($sql = "SELECT COUNT(*) FROM article")->fetchColumn();
     }
+
+    public static function getArticlesWithCategories($connection, $id) {
+        $joinSql = "SELECT article.*, category.name AS category_name FROM article 
+                    LEFT JOIN article_category ON article.id=article_category.article_id 
+                    JOIN category ON category.id=article_category.category_id 
+                    WHERE article.id=:id;";
+        $stmt = $connection->prepare($joinSql);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
