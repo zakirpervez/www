@@ -116,4 +116,14 @@ class ArticleCurdOperations
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function getCategories($connection, $id) {
+        $joinSql = "SELECT category.* FROM category 
+                    LEFT JOIN article_category ON category.id=article_category.category_id  
+                    WHERE article_id=:id;";
+        $stmt = $connection->prepare($joinSql);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
 } else {
     die("id not supplied, article not found");
 }
-
+var_dump(ArticleCurdOperations::getCategories($connection, $articleData->id));
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $articleData->title = $_POST['title'];
     $articleData->content = $_POST['content'];
