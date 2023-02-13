@@ -4,8 +4,10 @@ $connection = require 'includes/database_helper.php';
 
 if (isset($_GET['id'])) {
     $articleData = ArticleCurdOperations::getArticleData($connection, $_GET['id']);
+    $articleWithCategories = ArticleCurdOperations::getArticlesWithCategories($connection, $articleData->id);
 } else {
     $articleData = null;
+    $articleWithCategories = null;
 }
 ?>
 
@@ -21,4 +23,16 @@ if (isset($_GET['id'])) {
         <?php endif; ?>
     </article>
 <?php endif; ?>
+    <div>
+        <fieldset>
+            <?php if ($articleData == null) : ?>
+                <p>No articles with categories found.</p>
+            <?php else : ?>
+                <h4>Categories: </h4>
+                <?php foreach ($articleWithCategories as $article) : ?>
+                    <?= htmlspecialchars($article['category_name']); ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </fieldset>
+    </div>
 <?php require 'includes/footer.php' ?>
