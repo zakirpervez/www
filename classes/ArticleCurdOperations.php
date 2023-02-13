@@ -21,12 +21,13 @@ class ArticleCurdOperations
             return true;
         }
     }
+
     /**
      * Validate the article form
-     * @param string $title article title 
-     * @param string $content article content 
+     * @param string $title article title
+     * @param string $content article content
      * @param string $published_at article published date
-     * 
+     *
      * @return Validation error array
      */
     public static function validateArticle($articleData)
@@ -82,6 +83,30 @@ class ArticleCurdOperations
         return $stmt->execute();
     }
 
+    public static function setCategories($connection, $articleData)
+    {
+       if ($articleData->categoryIds) {
+           $sql = "INSERT IGNORE INTO article_category (article_id, category_id) VALUES";
+           $values = [];
+           foreach ($articleData->categoryIds as $category) {
+               $values[] = "({$articleData->id}, ?)";
+           }
+           $sql .= implode(", ", $values);
+           $stmt = $connection->prepare($sql);
+           foreach ($articleData->categoryIds as $category => $index) {
+               $stmt->bindValue($category+1, $index, PDO::PARAM_INT);
+           }
+           $stmt->execute();
+//           $sql = "INSERT IGNORE INTO article_category (article_id, category_id)
+//                VALUES ({$articleData->id}, :category_id)";
+//           $stmt = $connection->prepare($sql);
+//           foreach ($articleData->categoryIds as $category) {
+//               $stmt->bindValue(':category_id', $category, PDO::PARAM_INT);
+//               $stmt->execute();
+//           }
+       }
+    }
+
     public static function deleteArticle($connection, $articleData)
     {
         $deleteSql = "DELETE FROM article WHERE id=:id;";
@@ -102,11 +127,13 @@ class ArticleCurdOperations
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getTotalCount($connection) {
+    public static function getTotalCount($connection)
+    {
         return $connection->query($sql = "SELECT COUNT(*) FROM article")->fetchColumn();
     }
 
-    public static function getArticlesWithCategories($connection, $id) {
+    public static function getArticlesWithCategories($connection, $id)
+    {
         $joinSql = "SELECT article.*, category.name AS category_name FROM article 
                     LEFT JOIN article_category ON article.id=article_category.article_id 
                     JOIN category ON category.id=article_category.category_id 
@@ -117,7 +144,8 @@ class ArticleCurdOperations
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getCategories($connection, $id) {
+    public static function getCategories($connection, $id)
+    {
         $joinSql = "SELECT category.* FROM category 
                     LEFT JOIN article_category ON category.id=article_category.category_id  
                     WHERE article_id=:id;";

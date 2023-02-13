@@ -6,6 +6,7 @@ class ArticleData {
     public $content;
     public $published_at;
     public $image_file;
+    public $categoryIds = [];
 
     public function setImageFile($connection, $file)
     {
