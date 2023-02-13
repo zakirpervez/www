@@ -105,6 +105,21 @@ class ArticleCurdOperations
 //               $stmt->execute();
 //           }
        }
+        self::deleteCategories($connection, $articleData);
+    }
+
+    public static function deleteCategories($connection, $articleData) {
+        $sql = "DELETE FROM article_category WHERE article_id={$articleData->id}";
+        if ($articleData->categoryIds) {
+            $placeholders = array_fill(0, count($articleData->categoryIds), '?');
+            $sql .= " AND category_id NOT IN (".implode(", ", $placeholders) . ")";
+        }
+
+        $stmt = $connection->prepare($sql);
+        foreach ($articleData->categoryIds as $category => $index) {
+            $stmt->bindValue($category+1, $index, PDO::PARAM_INT);
+        }
+        $stmt->execute();
     }
 
     public static function deleteArticle($connection, $articleData)
