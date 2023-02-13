@@ -132,14 +132,30 @@ class ArticleCurdOperations
 
     public static function page($connection, $limit, $offset)
     {
-        $sql = "SELECT * FROM `article` ORDER BY title LIMIT :limit OFFSET :offset;";
+//        $sql = "SELECT * FROM `article` ORDER BY title LIMIT :limit OFFSET :offset;";
+        $sql = "SELECT a.*, category.name as category_name FROM
+        (SELECT * FROM `article` ORDER BY published_at LIMIT :limit OFFSET :offset) AS a
+        LEFT JOIN article_category ON a.id=article_category.article_id
+        LEFT JOIN category ON category.id=article_category.category_id";
 
         $stmt = $connection->prepare($sql);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $articles = [];
+        $previous_article_id = null;
+        foreach ($result as $row) {
+            $articleId = $row['id'];
+            if ($articleId != $previous_article_id) {
+                $row['category_names'] = [];
+                $articles[$articleId] = $row;
+            }
+            $articles[$articleId]['category_names'][] = $row['category_name'];
+            $previous_article_id = $articleId;
+        }
+        return $articles;
     }
 
     public static function getTotalCount($connection)
