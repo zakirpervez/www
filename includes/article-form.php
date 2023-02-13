@@ -35,7 +35,7 @@ ini_set('display_errors', 1);
             <?php foreach ($categories as $category) : ?>
                 <div>
                     <input type="checkbox"
-                           name="<?= $category['name'];?>"
+                           name="category[]"
                            value="<?= $category['id'];?>"
                            id="<?= $category['id'];?>"
                            <?php if (in_array($category['id'], $category_ids)): ?>

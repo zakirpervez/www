@@ -19,9 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $articleData->title = $_POST['title'];
     $articleData->content = $_POST['content'];
     $articleData->published_at = $_POST['published_at'];
+    $articleData->categoryIds = $_POST['category'] ?? [];
+
     $errors = ArticleCurdOperations::validateArticle($articleData);
     if (empty($errors)) {
         if (ArticleCurdOperations::updateArticle($connection, $articleData)) {
+            ArticleCurdOperations::setCategories($connection, $articleData);
             $path = "/www/admin/article-detail.php?id=$articleData->id";
             Router::redirect($path);
         }
