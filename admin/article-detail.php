@@ -24,11 +24,11 @@ if (isset($_GET['id'])) {
 <div>
     <?php if (AuthHelper::isLoggedIn()) : ?>
         <a href="edit-article.php?id=<?= $articleData->id; ?>">Edit</a>
-        <a href="delete-article.php?id=<?= $articleData->id; ?>">Delete</a>
+        <a href="delete-article.php?id=<?= $articleData->id; ?>" class="delete-article">Delete</a>
         <a href="edit-article-image.php?id=<?= $articleData->id; ?>">Edit Image</a>
 
         <?php if($articleData->image_file): ?>
-            <a href="delete-article-image.php?id=<?= $articleData->id; ?>">Delete Image</a>
+            <a href="delete-article-image.php?id=<?= $articleData->id; ?>" class="delete-article">Delete Image</a>
             <img src="/www/uploads/<?= $articleData->image_file; ?>" alt="Article image">
         <?php endif; ?>
     <?php endif; ?>
