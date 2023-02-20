@@ -12,7 +12,7 @@ ini_set('display_errors', 1);
     </fieldset>
 <?php endif; ?>
 
-<form method="post">
+<form method="post" id="newArticleForm">
     <div>
         <label for="title">Title</label>
         <input name="title" id="title" placeholder="Article Title" type="text"
@@ -25,7 +25,7 @@ ini_set('display_errors', 1);
     </div>
     <div>
         <label for="published_at">Publication date and time</label>
-        <input name="published_at" id="published_at" type="datetime-local" placeholder="Article Published Date & Time"
+        <input name="published_at" id="published_at" type="datetime-local"
                value="<?= htmlspecialchars($articleData->published_at); ?>"/>
     </div>
     <?php if(!empty($categories)): ?>

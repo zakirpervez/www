@@ -54,7 +54,7 @@ $articles = ArticleCurdOperations::page($connection, $paginator->limit, $paginat
                         <h2><?= htmlspecialchars($article['title']); ?></h2>
                     </a>
                 </article>
-                <?php if (!empty($article['category_names'])): ?>
+                <?php if (isset($article['category_names']) && ! empty($article['category_names'])): ?>
                     <p>Categories:
                         <?php foreach ($article['category_names'] as $name) : ?>
                             <?= htmlspecialchars($name); ?>
