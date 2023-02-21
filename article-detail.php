@@ -4,7 +4,7 @@ $connection = require 'includes/database_helper.php';
 
 if (isset($_GET['id'])) {
     $articleData = ArticleCurdOperations::getArticleData($connection, $_GET['id']);
-    $articleWithCategories = ArticleCurdOperations::getArticlesWithCategories($connection, $articleData->id);
+    $articleWithCategories = ArticleCurdOperations::getArticlesWithCategories($connection, $articleData->id, true);
 } else {
     $articleData = null;
     $articleWithCategories = null;

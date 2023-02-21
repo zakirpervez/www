@@ -1,0 +1,13 @@
+p {
+    margin: 0.5%;
+    font-family: sans-serif;
+    color: rebeccapurple;
+    font-size: 150%;
+}
+
+p.Paragraph {
+    margin: 0.5%;
+    font-family: arial;
+    color: crimson;
+    font-size: 100%;
+}

@@ -163,12 +163,15 @@ class ArticleCurdOperations
         return $connection->query($sql = "SELECT COUNT(*) FROM article")->fetchColumn();
     }
 
-    public static function getArticlesWithCategories($connection, $id)
+    public static function getArticlesWithCategories($connection, $id, $only_published = false)
     {
         $joinSql = "SELECT article.*, category.name AS category_name FROM article 
                     LEFT JOIN article_category ON article.id=article_category.article_id 
                     JOIN category ON category.id=article_category.category_id 
-                    WHERE article.id=:id;";
+                    WHERE article.id=:id";
+        if ($only_published) {
+            $joinSql .= ' AND article.published_at IS NOT NULL;';
+        }
         $stmt = $connection->prepare($joinSql);
         $stmt->bindValue(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
