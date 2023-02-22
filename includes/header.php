@@ -1,6 +1,3 @@
-<?php
-require 'includes/init.php';
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,10 +33,10 @@ require 'includes/init.php';
             <?php if (AuthHelper::isLoggedIn()): ?>
                 <li class="nav-item"><a href="/www/">Home</a></li>
                 <li class="nav-item"><a href="/www/admin/">Admin</a></li>
+                <li class="nav-item"><a href="/www/contact_us.php">Contact</a></li>
                 <li class="nav-item"><a href="/www/logout.php">Log out</a></li>
             <?php else : ?>
                 <li class="nav-item"><a href="/www/login.php">Login</a></li>
-                <li class="nav-item"><a href="/www/contact_us.php">Contact</a></li>
             <?php endif; ?>
         </ul>
     </nav>

@@ -26,3 +26,17 @@ $("#formArticle").validate({
         }
     }
 });
+
+$("#contactForm").validate({
+    rules: {
+        email: {
+            required: true
+        },
+        subject: {
+            required: true
+        },
+        message: {
+            required: true
+        }
+    }
+});

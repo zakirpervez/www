@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
     <fieldset>
         <ul id="ul_error">
             <?php foreach ($errors as $error): ?>
-                <li><?= $error ?></li>
+                <li style="color: red"><?= $error ?></li>
             <?php endforeach; ?>
         </ul>
     </fieldset>
