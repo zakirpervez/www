@@ -1,3 +1,6 @@
+<?php
+require 'includes/init.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,9 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/contact.css">
     <style>
         li {
             padding: 0.5%;
+        }
+        button {
+            margin-top: 0.5%;
+            width: 20%;
+        }
+        label {
+            margin-top: 0.5%;
+            margin-bottom: 0.5%;
         }
     </style>
 </head>
@@ -26,6 +39,7 @@
                 <li class="nav-item"><a href="/www/logout.php">Log out</a></li>
             <?php else : ?>
                 <li class="nav-item"><a href="/www/login.php">Login</a></li>
+                <li class="nav-item"><a href="/www/contact_us.php">Contact</a></li>
             <?php endif; ?>
         </ul>
     </nav>

@@ -15,14 +15,14 @@ $articles = ArticleCurdOperations::page($connection, $paginator->limit, $paginat
     </article>
 </fieldset>
 <h2>Administration</h2>
-<table>
+<table class="table">
     <thead>
         <th>Title</th>
     </thead>
     <?php foreach ($articles as $article) : ?>
         <tbody>
-            <tr>
-                <td>
+            <tr class="table-light">
+                <td class="table-light">
                     <a href="/www/admin/article-detail.php?id=<?= $article['id']; ?>">
                         <?= htmlspecialchars($article['title']); ?>
                     </a>

@@ -46,7 +46,7 @@ $articles = ArticleCurdOperations::page($connection, $paginator->limit, $paginat
         <article>
             <h3><a href="formvalidation.php">PHP Form Validataion</a></h3>
         </article> -->
-    <ul>
+    <ul id="index">
         <?php foreach ($articles as $article) : ?>
             <li>
                 <article>
