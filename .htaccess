@@ -1,0 +1,4 @@
+# This file is used to protect all files of this directory.
+<Files config.php>
+Deny from all
+</Files>

@@ -1,7 +1,7 @@
 <?php
 require 'includes/init.php';
 
-$database = new Database();
+$database = new Database(DB_HOST, DB_NAME, DB_USER, DB_PASSWORD);
 $connection = $database->getDatabaseConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {

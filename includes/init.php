@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 1);
+require dirname(__DIR__). '/config.php';
 spl_autoload_register ( function ($class) {
         $sources = array(
             dirname(__DIR__). "/classes/$class.php",
@@ -19,5 +20,4 @@ spl_autoload_register ( function ($class) {
     }
 );
 
-  
 if(session_status() !== PHP_SESSION_ACTIVE) session_start();

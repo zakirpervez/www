@@ -474,3 +474,4 @@ composer.lock
 *.scss.map
 /uploads/
 /.idea/
+.DS_Store
