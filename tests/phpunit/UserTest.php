@@ -28,4 +28,14 @@ class UserTest extends TestCase
         $this->assertEmpty($user->getFullName());
     }
 
+    /**
+     * Second way to writing php test cases.
+     * @test
+     */
+    function check_empty_name() {
+        $user = new User();
+        // Adding trim here because we are adding the space in getFullName.
+        $this->assertEmpty($user->getFullName());
+    }
+
 }
