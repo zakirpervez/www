@@ -1,0 +1,1 @@
+{"version":1,"defects":{"UserTest::testGetFullNameAndReturnNothing":4,"UserTest::testEmptyName":3},"times":{"UserTest::testGetFullNameAndReturnNothing":0.002,"UserTest::testEmptyName":0.002}}
