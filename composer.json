@@ -3,6 +3,8 @@
         "phpunit/phpunit": "^8"
     },
     "autoload": {
-        "files": ["phpunitpractice/User.php"]
+        "psr-4": {
+            "": "src/"
+        }
     }
 }

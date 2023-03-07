@@ -1,5 +1,4 @@
 <?php
-namespace PHPUnitPractice;
 class User
 {
     public $first_name;
