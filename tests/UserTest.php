@@ -52,4 +52,16 @@ class UserTest extends TestCase
         $this->assertTrue($user->notify('Hello'));
     }
 
+    public function testCanNotNotifyUserWithNoEmail() {
+        $user = new User();
+        $user->email = "";
+        $mailerMocked = $this->getMockBuilder(Mailer::class)->onlyMethods(['transfer'])->getMock();
+        $mailerMocked
+            ->method('sendEmail')
+            ->will($this->throwException(new Exception()));
+        $user->setMailer($mailerMocked);
+        $this->expectException(Exception::class);
+        $user->notify('Hello');
+    }
+
 }
