@@ -2,18 +2,18 @@
 class User
 {
     /** @var string */
-    public $first_name;
+    public string $first_name = '';
     /** @var string */
-    public $last_name;
+    public string $last_name = '';
     /** @var string */
-    public $email;
+    public string $email;
     /** @var Mailer */
-    public $mailer;
+    public Mailer $mailer;
 
     /**
      * @param Mailer $mailer
      */
-    public function __construct(Mailer $mailer)
+    public function setMailer(Mailer $mailer): void
     {
         $this->mailer = $mailer;
     }
@@ -23,7 +23,8 @@ class User
         return trim($this->first_name. " ". $this->last_name);
     }
 
-    public function notify($message) {
+    public function notify($message): bool
+    {
         return $this->mailer->sendEmail($this->email, $message);
     }
 }
