@@ -12,12 +12,11 @@ class OrderTest extends TestCase
 
         $gateway->expects($this->once())
             ->method('charge')
-            ->with($this->equalTo(200))
+            ->with($this->equalTo(200.0))
             ->willReturn(true);
 
-        $order = new Order($gateway);
-        $order->amount = 200;
-        $this->assertTrue($order->process());
+        $order = new Order(2, 100.0);
+        $this->assertTrue($order->processPayment($gateway));
     }
 
     public function testOrderIsProceedWithMockery() {
@@ -27,9 +26,32 @@ class OrderTest extends TestCase
             ->with(200)
             ->andReturn(true);
 
-        $order = new Order($gateway);
-        $order->amount = 200;
-        $this->assertTrue($order->process());
+        $order = new Order(2, 100.0);
+        $this->assertTrue($order->processPayment($gateway));
+    }
+
+    public function testOrderIsProceedUsingAMock() {
+        $order = new Order(3, 1.99);
+        $this->assertEquals(5.97, $order->amount);
+
+        $gateway = Mockery::mock('PaymentGateway');
+        $gateway->shouldReceive('charge')
+            ->once()
+            ->with(5.97)
+            ->andReturn(true);
+
+        $order->process($gateway);
+    }
+
+    public function testOrderIsProceedUsingASpy() {
+        $order = new Order(3, 1.99);
+        $this->assertEquals(5.97, $order->amount);
+
+        $gateway = Mockery::spy('PaymentGateway');
+
+        $order->process($gateway);
+
+        $gateway->shouldHaveReceived('charge')->once()->with(5.97);
     }
 
     public function tearDown(): void

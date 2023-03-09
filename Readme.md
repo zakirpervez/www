@@ -17,3 +17,5 @@ There are two ways to add the mockery in test case.
 1. Extends the MockeryTestClass for example check ExampleTest
 2. Add the tearDown method with Mockery::close() code. eg check OrderTest
 
+Note: With mockery spy you can not specify return values.
+

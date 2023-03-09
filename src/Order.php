@@ -2,26 +2,50 @@
 
 class Order
 {
-    /** @var int $amount */
-    public $amount = 0;
+    /** @var int $quantity */
+    public int $quantity = 0;
 
-    /** @var PaymentGateway */
-    protected $gatway;
+    /** @var float $unitPrice */
+    public float $unitPrice = 0.0;
+
+    /** @var int|float $amount */
+    public int|float $amount = 0;
 
     /**
      * Instantiate Order
+     *
+     * @param int $quantity
+     * @param float $unitPrice
      */
-    public function __construct(PaymentGateway $gateway)
+    public function __construct(int $quantity, float $unitPrice)
     {
-        $this->gatway = $gateway;
+        $this->quantity = $quantity;
+        $this->unitPrice = $unitPrice;
+
+        $this->amount = $quantity * $unitPrice;
+    }
+
+
+    /**
+     * Process order request with given amount.
+     *
+     * @param PaymentGateway $gateway
+     *
+     * @return void
+     */
+    public function process(PaymentGateway $gateway) {
+        return $gateway->charge($this->amount);
     }
 
     /**
      * Process order request with given amount.
-     * @return bool success or fail.
+     *
+     * @param PaymentGateway $gateway
+     *
+     * @return bool
      */
-    public function process(): bool {
-        return $this->gatway->charge($this->amount);
+    public function processPayment(PaymentGateway $gateway): bool {
+        return $gateway->charge($this->amount);
     }
 
 }
